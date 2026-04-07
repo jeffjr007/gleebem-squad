@@ -1,5 +1,5 @@
 // src/screens/ConsentScreen.tsx — TELA 2: Consentimento LGPD
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import Svg, { Path, Circle, Rect, Line } from 'react-native-svg';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,17 +13,8 @@ type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Consent'>;
 };
 
-function CheckIcon() {
-  return (
-    <Svg width={13} height={10} viewBox="0 0 13 10" fill="none">
-      <Path d="M1 5l4 4 7-8" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-    </Svg>
-  );
-}
 
 export default function ConsentScreen({ navigation }: Props) {
-  const [cb1, setCb1] = useState(true);
-  const [cb2, setCb2] = useState(true);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -104,27 +95,7 @@ export default function ConsentScreen({ navigation }: Props) {
             </Text>
           </View>
 
-          {/* Checkboxes */}
-          <View style={styles.checkboxCard}>
-            <TouchableOpacity style={styles.cbRow} onPress={() => setCb1(!cb1)} activeOpacity={0.8}>
-              <View style={[styles.cbBox, cb1 && styles.cbBoxOn]}>
-                {cb1 && <CheckIcon />}
-              </View>
-              <Text style={styles.cbLabel}>
-                Li e concordo com os{' '}
-                <Text style={styles.cbLink}>Termos de Uso</Text>
-                {' '}e{' '}
-                <Text style={styles.cbLink}>Política de Privacidade</Text>
-              </Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.cbRow} onPress={() => setCb2(!cb2)} activeOpacity={0.8}>
-              <View style={[styles.cbBox, cb2 && styles.cbBoxOn]}>
-                {cb2 && <CheckIcon />}
-              </View>
-              <Text style={styles.cbLabel}>Autorizo o uso da câmera para este teste de saúde</Text>
-            </TouchableOpacity>
-          </View>
         </View>
 
         <View style={{ height: 20 }} />
@@ -176,28 +147,4 @@ const styles = StyleSheet.create({
     borderLeftColor: Colors.blue,
   },
   techNoteText: { fontSize: 12, color: Colors.techNoteText, lineHeight: 19 },
-  checkboxCard: {
-    backgroundColor: Colors.white,
-    borderRadius: 12,
-    ...cardShadow,
-    padding: 14,
-    paddingHorizontal: 18,
-    marginTop: 10,
-    gap: 8,
-  },
-  cbRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, paddingVertical: 8 },
-  cbBox: {
-    width: 22,
-    height: 22,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: Colors.blue,
-    backgroundColor: Colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 1,
-  },
-  cbBoxOn: { backgroundColor: Colors.blue, borderColor: Colors.blue },
-  cbLabel: { flex: 1, fontSize: 13, color: Colors.textSub, lineHeight: 19 },
-  cbLink: { color: Colors.blue, fontWeight: '700' },
 });

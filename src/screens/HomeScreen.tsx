@@ -40,7 +40,12 @@ export default function HomeScreen({ navigation }: Props) {
           </Svg>
           <Text style={styles.logoText}>Gleebem</Text>
         </View>
-        <View style={{ width: 30 }} />
+        <TouchableOpacity style={styles.menuBtn} activeOpacity={0.75} onPress={() => navigation.navigate('Intro')}>
+          <Svg width={24} height={24} viewBox="0 0 36 36" fill="none">
+            <Path d="M18 6C18 6 8 10 8 19a10 10 0 0020 0C28 10 18 6 18 6z" stroke="white" strokeWidth={2.5} fill="none" strokeLinejoin="round" />
+            <Path d="M12 20h3l2-5 3 8 2-5 2 2h2" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          </Svg>
+        </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
@@ -91,19 +96,6 @@ export default function HomeScreen({ navigation }: Props) {
             </View>
           </TouchableOpacity>
 
-          {/* Card NOVO: Teste de Saúde Rápido */}
-          <TouchableOpacity style={styles.homeCard} activeOpacity={0.75} onPress={() => navigation.navigate('Intro')}>
-            <View style={styles.homeCardLeft}>
-              <Text style={styles.homeCardTitle}>Teste de Saúde Rápido</Text>
-              <Text style={styles.homeCardSub}>Verifique seus indicadores de saúde em 30 segundos.</Text>
-            </View>
-            <View style={styles.cardIcon}>
-              <Svg width={36} height={36} viewBox="0 0 36 36" fill="none">
-                <Path d="M18 6C18 6 8 10 8 19a10 10 0 0020 0C28 10 18 6 18 6z" stroke={Colors.blue} strokeWidth={2} fill="none" strokeLinejoin="round" />
-                <Path d="M12 20h3l2-5 3 8 2-5 2 2h2" stroke={Colors.blue} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              </Svg>
-            </View>
-          </TouchableOpacity>
 
           {/* Card 3: Agende sua consulta */}
           <TouchableOpacity style={styles.homeCard} activeOpacity={0.75}>

@@ -40,33 +40,7 @@ export default function RecommendationsScreen({ navigation, route }: Props) {
           </View>
         )}
 
-        {/* Rec Card 1: Consultar especialista */}
-        <View style={styles.recCard}>
-          <View style={styles.recCardHeader}>
-            <View style={[styles.recCardIconWrap, { backgroundColor: Colors.techNote }]}>
-              <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                <Path d="M12 22C6 22 2 17 2 12V5l10-3 10 3v7c0 5-4 10-10 10z" stroke={Colors.blue} strokeWidth={1.8} fill="none" />
-                <Path d="M9 12l2 2 4-4" stroke={Colors.blue} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
-              </Svg>
-            </View>
-            <Text style={styles.recCardTitle}>Consultar um especialista</Text>
-            <View style={[styles.recTag, styles.tagBlue]}>
-              <Text style={styles.tagBlueTxt}>Recomendado</Text>
-            </View>
-          </View>
-          <View style={styles.recCardBody}>
-            <Text style={styles.recCardDesc}>
-              Com base nos seus indicadores, uma consulta com psicólogo ou clínico geral pode ajudar a identificar causas e estratégias.
-            </Text>
-            <TouchableOpacity
-              style={[styles.recBtn, styles.recBtnSolid]}
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate('Home')}
-            >
-              <Text style={styles.recBtnSolidTxt}>Agendar Teleconsulta</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+
 
         {/* Rec Card 2: Exercícios respiratórios */}
         <View style={styles.recCard}>
