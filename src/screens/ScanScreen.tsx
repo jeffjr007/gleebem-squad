@@ -13,6 +13,7 @@ import Svg, { Path, Ellipse } from 'react-native-svg';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import { Colors } from '../theme';
+import { executeWellnessScan } from '../services/shenai.service';
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Scan'>;
@@ -24,6 +25,8 @@ export default function ScanScreen({ navigation }: Props) {
   const scanLineAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    let isCancelled = false;
+
     // Scan line animation
     const loopAnim = Animated.loop(
       Animated.sequence([
@@ -33,12 +36,26 @@ export default function ScanScreen({ navigation }: Props) {
     );
     loopAnim.start();
 
-    // Timer
+    // Inicia integração com Shen.ai 
+    async function startShenai() {
+      const result = await executeWellnessScan();
+      if (isCancelled) return;
+      if (result) {
+        // Envia para loading
+        navigation.replace('Loading');
+      } else {
+        // Fallback em caso de falha da permissao/câmera
+        navigation.goBack();
+      }
+    }
+
+    startShenai();
+
+    // Timer visual apenas para a UI
     const interval = setInterval(() => {
       setSecondsLeft(prev => {
         if (prev <= 1) {
           clearInterval(interval);
-          setTimeout(() => navigation.navigate('Loading'), 500);
           return 0;
         }
         return prev - 1;
@@ -47,6 +64,7 @@ export default function ScanScreen({ navigation }: Props) {
     }, 1000);
 
     return () => {
+      isCancelled = true;
       clearInterval(interval);
       loopAnim.stop();
     };
