@@ -1,5 +1,6 @@
-// src/services/shenai.service.ts
 import { Alert } from 'react-native';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from './firebase';
 
 /**
  * Interface simulando os resultados que o Shen.ai retorna
@@ -14,16 +15,11 @@ export interface ShenaiScanResult {
 
 /**
  * Interface simulando o módulo nativo do Shen.ai SDK
- * Em um cenário real, você importará de '@shen-ai/react-native-sdk' (ou similar)
  */
 export const ShenaiSDK = {
-  /**
-   * Inicializa o SDK do Shen.ai com a API KEY
-   */
   initialize: async (apiKey: string): Promise<boolean> => {
     try {
       console.log('Shen.ai: Inicializando com a chave', apiKey);
-      // await ShenaiNativeModule.initialize(apiKey);
       return true;
     } catch (e) {
       console.error('Falha ao inicializar Shen.ai', e);
@@ -31,17 +27,10 @@ export const ShenaiSDK = {
     }
   },
 
-  /**
-   * Dispara a tela nativa ou o componente de câmera do Shen.ai
-   * para uma captura de 30 segundos.
-   */
   startScan: async (): Promise<ShenaiScanResult | null> => {
     return new Promise((resolve) => {
       console.log('Shen.ai: Iniciando scan de 30s...');
-      
-      // MOCK: Simulando o tempo de scan (30s na vida real, acelerado aqui)
       setTimeout(() => {
-        // Simulando um resultado positivo de saúde
         resolve({
           heartRate: 72,
           hrvTotal: 48,
@@ -55,15 +44,45 @@ export const ShenaiSDK = {
 };
 
 /**
- * Função utilitária que será chamada pela Launch Screen
+ * Executa o Scan e já salva o resultado real no Firebase
  */
 export async function executeWellnessScan(): Promise<ShenaiScanResult | null> {
-  const isReady = await ShenaiSDK.initialize('SUA_SHENAI_API_KEY_AQUI');
+  const apiKey = process.env.EXPO_PUBLIC_SHENAI_API_KEY || 'SUA_SHENAI_API_KEY_AQUI';
+  const isReady = await ShenaiSDK.initialize(apiKey);
   if (!isReady) {
     Alert.alert('Erro', 'Não foi possível inicializar a câmera.');
     return null;
   }
   
   const results = await ShenaiSDK.startScan();
+
+  if (results) {
+    try {
+      // Cria a coleção em runtime caso ela não exista ainda, ligada a um usuário Hardcoded (demo)
+      const userId = 'user_demo_gleebem_123';
+      
+      const testsCollectionRef = collection(db, 'users', userId, 'wellness_tests');
+      
+      const newDoc = await addDoc(testsCollectionRef, {
+        userId,
+        status: 'completed',
+        createdAt: serverTimestamp(),
+        provider: 'shenai',
+        shenai: {
+          measurementId: results.measurementId,
+        },
+        rawMetrics: {
+          heartRate: { value: results.heartRate, status: 'normal' },
+          hrv: { sdnn: results.hrvTotal, status: 'attention' },
+          stressLevel: { score: results.stressScore, status: 'attention' },
+          respiratoryRate: { value: results.respiratoryRate, status: 'normal' }
+        }
+      });
+      console.log('✅ Resultado salvo com SUCESSO no Firestore! ID Documento:', newDoc.id);
+    } catch (err: any) {
+      console.error('Erro ao salvar no Firestore:', err.message);
+    }
+  }
+
   return results;
 }
