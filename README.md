@@ -45,11 +45,12 @@ EXPO_PUBLIC_SHENAI_API_KEY=sua_chave_shenai_de_producao
 ### 4. Rodar o App (Celular ou Web)
 Você pode escolher rodar direto para a Web, ou no seu celular (via App Expo Go).
 
-**Para testar direto na Web:**
+**Para testar direto na Web (no Computador):**
 ```bash
-npm run web
+npx expo start --web
 ```
-Acesse `http://localhost:8081` no seu Chrome / Safari e simule as dimensões de um celular.
+*(Se estiver dando erros de cache antigos, rode `npx expo start -c --web` para limpar a memória do servidor).*
+Acesse `http://localhost:8081` no seu Chrome / Safari e simule as dimensões de um celular (F12).
 
 **Para testar no seu celular (Expo Go):**
 - Instale o app "Expo Go" na Google Play ou App Store.
