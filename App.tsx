@@ -14,15 +14,17 @@ import LoadingScreen from './src/screens/LoadingScreen';
 import ResultScreen from './src/screens/ResultScreen';
 import RecommendationsScreen from './src/screens/RecommendationsScreen';
 
+import { executeWellnessScan, ShenaiScanResult } from './src/services/shenai.service';
+
 export type RootStackParamList = {
   Home: undefined;
   Intro: undefined;
   Consent: undefined;
   Preparation: undefined;
   Scan: undefined;
-  Loading: undefined;
-  Result: undefined;
-  Recommendations: undefined;
+  Loading: { results: ShenaiScanResult };
+  Result: { results: ShenaiScanResult };
+  Recommendations: { results: ShenaiScanResult };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

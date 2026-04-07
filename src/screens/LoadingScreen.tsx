@@ -10,15 +10,13 @@ import {
   Easing,
 } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import { Colors } from '../theme';
 import StatusBarRow from '../components/StatusBarRow';
 import InnerHeader from '../components/InnerHeader';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Loading'>;
-};
+type Props = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 
 type StepStatus = 'done' | 'active' | 'wait';
 
@@ -27,7 +25,7 @@ interface Step {
   status: StepStatus;
 }
 
-export default function LoadingScreen({ navigation }: Props) {
+export default function LoadingScreen({ navigation, route }: Props) {
   const spinAnim = useRef(new Animated.Value(0)).current;
   const birdAnim = useRef(new Animated.Value(0)).current;
 
@@ -67,7 +65,7 @@ export default function LoadingScreen({ navigation }: Props) {
     const t2 = setTimeout(() => {
       spin.stop();
       bob.stop();
-      navigation.navigate('Result');
+      navigation.navigate('Result', { results: route.params.results });
     }, 3500);
 
     return () => { clearTimeout(t1); clearTimeout(t2); spin.stop(); bob.stop(); };
@@ -156,7 +154,7 @@ export default function LoadingScreen({ navigation }: Props) {
 
       <TouchableOpacity
         style={styles.demoBtn}
-        onPress={() => navigation.navigate('Result')}
+        onPress={() => navigation.navigate('Result', { results: route.params.results })}
         activeOpacity={0.8}
       >
         <Text style={styles.demoBtnTxt}>Ver resultado (demo)</Text>

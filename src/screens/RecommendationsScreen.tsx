@@ -2,18 +2,18 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import Svg, { Path, Circle, Rect } from 'react-native-svg';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import { Colors, cardShadow } from '../theme';
 import StatusBarRow from '../components/StatusBarRow';
 import InnerHeader from '../components/InnerHeader';
 import CTABar from '../components/CTABar';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Recommendations'>;
-};
+type Props = NativeStackScreenProps<RootStackParamList, 'Recommendations'>;
 
-export default function RecommendationsScreen({ navigation }: Props) {
+export default function RecommendationsScreen({ navigation, route }: Props) {
+  const { results } = route.params;
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBarRow time="16:59" />
@@ -24,19 +24,21 @@ export default function RecommendationsScreen({ navigation }: Props) {
           <Text style={styles.pageDesc}>Com base no seu resultado de hoje</Text>
         </View>
 
-        {/* Alert strip */}
-        <View style={styles.alertStrip}>
-          <Svg width={22} height={22} viewBox="0 0 22 22" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
-            <Path d="M11 2L2 19h18L11 2z" stroke="#EA7552" strokeWidth={1.8} strokeLinejoin="round" fill="none" />
-            <Path d="M11 9v5M11 16v1" stroke="#EA7552" strokeWidth={1.8} strokeLinecap="round" />
-          </Svg>
-          <View>
-            <Text style={styles.alertTitle}>Nível de Estresse Elevado</Text>
-            <Text style={styles.alertDesc}>
-              Seu HRV indica estresse moderado. Considere as ações abaixo para melhorar seu bem-estar.
-            </Text>
+        {/* Alert strip - apenas se o estresse for moderado/alto */}
+        {results.stressScore >= 50 && (
+          <View style={styles.alertStrip}>
+            <Svg width={22} height={22} viewBox="0 0 22 22" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
+              <Path d="M11 2L2 19h18L11 2z" stroke="#EA7552" strokeWidth={1.8} strokeLinejoin="round" fill="none" />
+              <Path d="M11 9v5M11 16v1" stroke="#EA7552" strokeWidth={1.8} strokeLinecap="round" />
+            </Svg>
+            <View>
+              <Text style={styles.alertTitle}>Nível de Estresse Elevado</Text>
+              <Text style={styles.alertDesc}>
+                Seu HRV indica estresse moderado ({results.hrvTotal}ms). Considere as ações abaixo para melhorar seu bem-estar.
+              </Text>
+            </View>
           </View>
-        </View>
+        )}
 
         {/* Rec Card 1: Consultar especialista */}
         <View style={styles.recCard}>

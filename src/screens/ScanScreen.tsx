@@ -41,8 +41,8 @@ export default function ScanScreen({ navigation }: Props) {
       const result = await executeWellnessScan();
       if (isCancelled) return;
       if (result) {
-        // Envia para loading
-        navigation.replace('Loading');
+        // Envia para loading com os resultados
+        navigation.replace('Loading', { results: result });
       } else {
         // Fallback em caso de falha da permissao/câmera
         navigation.goBack();

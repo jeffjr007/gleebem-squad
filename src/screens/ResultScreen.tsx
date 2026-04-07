@@ -2,15 +2,13 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, ScrollView, StyleSheet, SafeAreaView, Animated } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import { Colors, cardShadow } from '../theme';
 import StatusBarRow from '../components/StatusBarRow';
 import CTABar from '../components/CTABar';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Result'>;
-};
+type Props = NativeStackScreenProps<RootStackParamList, 'Result'>;
 
 function MetricCard({
   title,
@@ -41,14 +39,16 @@ function MetricCard({
   );
 }
 
-export default function ResultScreen({ navigation }: Props) {
+export default function ResultScreen({ navigation, route }: Props) {
+  const { results } = route.params;
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBarRow time="16:59" />
       {/* Result header (azul) */}
       <View style={styles.resultHeader}>
         <Text style={styles.resultH2}>Seu Resultado</Text>
-        <Text style={styles.resultSub}>Teste realizado em 21/03/2026</Text>
+        <Text style={styles.resultSub}>Teste realizado hoje</Text>
       </View>
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
@@ -87,17 +87,17 @@ export default function ResultScreen({ navigation }: Props) {
 
         {/* Métricas 2×2 */}
         <View style={styles.metricsRow}>
-          <MetricCard title="Freq. Cardíaca" value="72" unit="bpm" status="Normal" statusType="ok" />
-          <MetricCard title="Variab. Cardíaca" value="48" unit="ms" status="Atenção" statusType="warn" />
-          <MetricCard title="Nível de Estresse" value="Médio" status="Moderado" statusType="warn" />
-          <MetricCard title="Respiração" value="16" unit="rpm" status="Normal" statusType="ok" />
+          <MetricCard title="Freq. Cardíaca" value={results.heartRate.toString()} unit="bpm" status="Normal" statusType="ok" />
+          <MetricCard title="Variab. Cardíaca" value={results.hrvTotal.toString()} unit="ms" status="Normal" statusType="ok" />
+          <MetricCard title="Nível de Estresse" value={results.stressScore > 55 ? 'Alto' : results.stressScore > 35 ? 'Médio' : 'Baixo'} status={results.stressScore > 55 ? 'Atenção' : 'Normal'} statusType={results.stressScore > 55 ? 'warn' : 'ok'} />
+          <MetricCard title="Respiração" value={results.respiratoryRate.toString()} unit="rpm" status="Normal" statusType="ok" />
         </View>
 
         {/* Gauge estresse */}
         <View style={styles.gaugeCard}>
           <Text style={styles.gaugeTitle}>Nível de Estresse</Text>
           <View style={styles.gaugeTrack}>
-            <View style={styles.gaugeFill} />
+            <View style={[styles.gaugeFill, { width: `${results.stressScore}%` }]} />
           </View>
           <View style={styles.gaugeFooter}>
             <Text style={styles.gaugeLbl}>Baixo</Text>
@@ -111,7 +111,7 @@ export default function ResultScreen({ navigation }: Props) {
 
       <CTABar
         mainLabel="Ver Recomendações"
-        onMain={() => navigation.navigate('Recommendations')}
+        onMain={() => navigation.navigate('Recommendations', { results })}
       />
     </SafeAreaView>
   );
