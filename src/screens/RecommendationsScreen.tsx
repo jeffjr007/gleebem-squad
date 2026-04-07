@@ -31,7 +31,7 @@ export default function RecommendationsScreen({ navigation, route }: Props) {
               <Path d="M11 2L2 19h18L11 2z" stroke="#EA7552" strokeWidth={1.8} strokeLinejoin="round" fill="none" />
               <Path d="M11 9v5M11 16v1" stroke="#EA7552" strokeWidth={1.8} strokeLinecap="round" />
             </Svg>
-            <View>
+            <View style={{ flex: 1 }}>
               <Text style={styles.alertTitle}>Nível de Estresse Elevado</Text>
               <Text style={styles.alertDesc}>
                 Seu HRV indica estresse moderado ({results.hrvTotal}ms). Considere as ações abaixo para melhorar seu bem-estar.
