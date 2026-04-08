@@ -37,7 +37,7 @@ export default function App() {
         initialRouteName="Home"
         screenOptions={{
           headerShown: false,
-          cardStyle: { backgroundColor: '#F0F0F0' },
+          cardStyle: { backgroundColor: '#F0F0F0', flex: 1 },
           gestureEnabled: true,
           cardStyleInterpolator: ({ current, layouts }) => ({
             cardStyle: {

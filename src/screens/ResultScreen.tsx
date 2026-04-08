@@ -51,7 +51,7 @@ export default function ResultScreen({ navigation, route }: Props) {
         <Text style={styles.resultSub}>Teste realizado hoje</Text>
       </View>
 
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={true}>
         {/* Wellness Score */}
         <View style={styles.scoreCard}>
           <Text style={styles.scoreLabel}>Wellness Score</Text>
@@ -106,7 +106,6 @@ export default function ResultScreen({ navigation, route }: Props) {
           </View>
         </View>
 
-        <View style={{ height: 72 }} />
       </ScrollView>
 
       <CTABar
@@ -118,7 +117,7 @@ export default function ResultScreen({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: Colors.bg },
+  safeArea: { flex: 1, backgroundColor: Colors.bg, height: '100%', overflow: 'hidden' },
   resultHeader: {
     backgroundColor: Colors.blue,
     padding: 16,
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
   },
   resultH2: { color: 'white', fontWeight: '900', fontSize: 19 },
   resultSub: { color: 'rgba(255,255,255,0.75)', fontSize: 13, marginTop: 2 },
-  scroll: { flex: 1 },
+  scroll: { flex: 1, flexGrow: 1 },
   scrollContent: { paddingBottom: 20 },
 
   // Score card
@@ -176,9 +175,9 @@ const styles = StyleSheet.create({
   metricsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    justifyContent: 'space-between',
     marginHorizontal: 14,
-    marginBottom: 10,
+    marginBottom: 0,
   },
   metricCard: {
     backgroundColor: Colors.white,
@@ -186,7 +185,8 @@ const styles = StyleSheet.create({
     ...cardShadow,
     padding: 14,
     paddingHorizontal: 16,
-    width: '47%',
+    width: '48%',
+    marginBottom: 10,
   },
   metricTitle: { fontWeight: '700', fontSize: 11, color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 6 },
   metricVal: { fontWeight: '900', fontSize: 22, color: Colors.text, lineHeight: 24 },

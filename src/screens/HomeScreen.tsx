@@ -180,6 +180,7 @@ export default function HomeScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    height: '100%',
     backgroundColor: Colors.bg,
   },
   gHeader: {

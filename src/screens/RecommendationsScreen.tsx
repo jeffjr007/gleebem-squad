@@ -108,7 +108,6 @@ export default function RecommendationsScreen({ navigation, route }: Props) {
           <Text style={styles.histArrow}>›</Text>
         </TouchableOpacity>
 
-        <View style={{ height: 80 }} />
       </ScrollView>
 
       <CTABar
