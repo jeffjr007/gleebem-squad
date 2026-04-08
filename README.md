@@ -60,5 +60,32 @@ npx expo start
 ```
 - Aponte a câmera do celular para o QRCode que aparece de forma gigante no terminal.
 
-## 🗄 Banco de Dados (Firebase)
-Ao concluir o fluxo de 30 segundos da câmera, o app salva automaticamente as medições (Frequência Cardíaca, HRV, Nível de Estresse) como documentos no seu "Firestore Database" lá no painel oficial do Firebase!
+## 🗄 Banco de Dados (Firebase Firestore)
+O app salva automaticamente os dados no Firestore (ex: `/users/{uid}/wellness_tests`). 
+
+### Regras do Firestore
+Atualmente estamos utilizando o banco em ambiente local de teste. Para funcionar na sua máquina sem o sistema de Login (Auth) pronto, substitua as regras do seu Firebase por esta:
+
+**Para testes (Atual):**
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+```
+
+**Para produção (Após integrar Login):**
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
