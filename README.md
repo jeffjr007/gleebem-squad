@@ -42,16 +42,15 @@ EXPO_PUBLIC_SHENAI_API_KEY=sua_chave_shenai_de_producao
 ```
 *O Expo vai importar essas variáveis automaticamente com o prefixo EXPO_PUBLIC_*
 
-### 4. Rodar o App (Opções de Teste)
+### 4. Rodar o App (Testes / Dev)
 
-**⚡ Opção Mais Rápida: Baixar o APK Pronto (Apenas Android)**
-Se você quer apenas testar o aplicativo e o escaneamento sem precisar configurar o ambiente de desenvolvimento, faça o download do APK pré-compilado diretamente do nosso Google Drive:
-👉 [**Baixar APK do Gleebem Wellness**](https://drive.google.com/drive/folders/18StK9mEANxOUIPMQZitsvptoSX1dYyiU)
-*(Baixe o arquivo pelo celular, autorize a instalação de fontes desconhecidas e teste na hora!)*
+**🔗 Download Direto do APK (Android)**
+Para quem for apenas testar o app (sem rodar código local), o APK atualizado está disponível no Google Drive:
+[**Acessar pasta no Drive**](https://drive.google.com/drive/folders/18StK9mEANxOUIPMQZitsvptoSX1dYyiU)
 
 ---
 
-**Para desenvolvedores: testar direto na Web (no Computador):**
+**Para desenvolvedores - rodar na Web (Computador):**
 ```bash
 npx expo start --web
 ```
