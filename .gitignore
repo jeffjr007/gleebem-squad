@@ -1,0 +1,37 @@
+node_modules/
+.expo/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+# Environment variables
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Android
+android/.gradle
+android/build/
+android/app/build/
+android/app/.cxx/
+*.apk
+*.aab
+local.properties
+
+# iOS
+ios/build/
+ios/Pods/
+ios/.symlinks/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Unused app code
+app-unused/
+
+react-native-shenai-sdk/ios/
