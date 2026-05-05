@@ -42,10 +42,16 @@ EXPO_PUBLIC_SHENAI_API_KEY=sua_chave_shenai_de_producao
 ```
 *O Expo vai importar essas variáveis automaticamente com o prefixo EXPO_PUBLIC_*
 
-### 4. Rodar o App (Celular ou Web)
-Você pode escolher rodar direto para a Web, ou no seu celular (via App Expo Go).
+### 4. Rodar o App (Opções de Teste)
 
-**Para testar direto na Web (no Computador):**
+**⚡ Opção Mais Rápida: Baixar o APK Pronto (Apenas Android)**
+Se você quer apenas testar o aplicativo e o escaneamento sem precisar configurar o ambiente de desenvolvimento, faça o download do APK pré-compilado diretamente do nosso Google Drive:
+👉 [**Baixar APK do Gleebem Wellness**](https://drive.google.com/drive/folders/18StK9mEANxOUIPMQZitsvptoSX1dYyiU)
+*(Baixe o arquivo pelo celular, autorize a instalação de fontes desconhecidas e teste na hora!)*
+
+---
+
+**Para desenvolvedores: testar direto na Web (no Computador):**
 ```bash
 npx expo start --web
 ```
@@ -62,12 +68,17 @@ Como o SDK da Shen.ai usa recursos de Machine Learning e processamento nativo qu
    - Volte, entre em Opções do Desenvolvedor e ative **Depuração USB**.
    - Conecte o celular no computador e "Permita" o acesso quando o pop-up surgir na tela do celular.
 
-**Compilando e Rodando:**
 Com o celular conectado e reconhecido, rode o comando:
 ```bash
 npx expo run:android
 ```
 Ele vai compilar todo o código nativo (pode demorar alguns minutos na primeira vez) e o app da Gleebem vai abrir magicamente na tela do seu celular, pronto para o scan real!
+
+### 💡 Dicas Vitais para o Teste do Shen.ai
+Para que o SDK conclua a medição com sucesso e não trave a barra de progresso:
+1. **Fique de frente para a luz:** O algoritmo rPPG precisa ver o sangue pulsando no seu rosto. Se você ficar de costas para a janela/lâmpada, aparecerá o erro **"Contraluz"** e o cronômetro será pausado pelo próprio SDK por segurança.
+2. **Tempo de medição:** A barra de progresso cinza leva exatamente **60 segundos** para encher. Não fale e não mexa muito o rosto.
+3. **Se travar no final:** Verifique se as chaves do Firebase estão corretas no `.env`. Sem elas, os dados são lidos, mas não são enviados para a nuvem.
 
 ## 🗄 Banco de Dados (Firebase Firestore)
 O app salva automaticamente os dados no Firestore (ex: `/users/{uid}/wellness_tests`). 
