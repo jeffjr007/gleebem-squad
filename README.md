@@ -76,7 +76,7 @@ Ele vai compilar todo o código nativo (pode demorar alguns minutos na primeira 
 ### 💡 Dicas Vitais para o Teste do Shen.ai
 Para que o SDK conclua a medição com sucesso e não trave a barra de progresso:
 1. **Fique de frente para a luz:** O algoritmo rPPG precisa ver o sangue pulsando no seu rosto. Se você ficar de costas para a janela/lâmpada, aparecerá o erro **"Contraluz"** e o cronômetro será pausado pelo próprio SDK por segurança.
-2. **Tempo de medição:** A barra de progresso cinza leva exatamente **60 segundos** para encher. Não fale e não mexa muito o rosto.
+2. **Tempo de medição:** A barra de progresso cinza leva exatamente **30 segundos** para encher. Não fale e não mexa muito o rosto.
 3. **Se travar no final:** Verifique se as chaves do Firebase estão corretas no `.env`. Sem elas, os dados são lidos, mas não são enviados para a nuvem.
 
 ## 🗄 Banco de Dados (Firebase Firestore)

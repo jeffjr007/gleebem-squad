@@ -51,8 +51,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ghostTxt: {
-    color: Colors.textMuted,
+    color: Colors.blueDark,
     fontWeight: '700',
-    fontSize: 13,
+    fontSize: 14,
+    textDecorationLine: 'underline',
   },
 });

@@ -6,6 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import { Colors, cardShadow } from '../theme';
 import StatusBarRow from '../components/StatusBarRow';
+import InnerHeader from '../components/InnerHeader';
 import CTABar from '../components/CTABar';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Result'>;
@@ -45,11 +46,7 @@ export default function ResultScreen({ navigation, route }: Props) {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBarRow time="16:59" />
-      {/* Result header (azul) */}
-      <View style={styles.resultHeader}>
-        <Text style={styles.resultH2}>Seu Resultado</Text>
-        <Text style={styles.resultSub}>Teste realizado hoje</Text>
-      </View>
+      <InnerHeader title="Seu Resultado" onBack={() => navigation.navigate('Home')} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={true}>
         {/* Wellness Score */}
@@ -118,14 +115,6 @@ export default function ResultScreen({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: Colors.bg, height: '100%', overflow: 'hidden' },
-  resultHeader: {
-    backgroundColor: Colors.blue,
-    padding: 16,
-    paddingHorizontal: 18,
-    paddingBottom: 18,
-  },
-  resultH2: { color: 'white', fontWeight: '900', fontSize: 19 },
-  resultSub: { color: 'rgba(255,255,255,0.75)', fontSize: 13, marginTop: 2 },
   scroll: { flex: 1, flexGrow: 1 },
   scrollContent: { paddingBottom: 20 },
 

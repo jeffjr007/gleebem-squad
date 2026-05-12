@@ -20,8 +20,8 @@ export type RootStackParamList = {
   Loading: { results: ShenaiScanResult };
   Preparation: undefined;
   Scan: undefined;
-  Result: undefined;
-  Recommendations: undefined;
+  Result: { results: ShenaiScanResult };
+  Recommendations: { results: ShenaiScanResult };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

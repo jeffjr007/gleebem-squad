@@ -31,7 +31,8 @@ export async function initializeShenAI(): Promise<boolean> {
     const result = await initialize(apiKey, userId, {
       showUserInterface: true, // Mostra a interface embutida (A máscara e os botões de controle)
       enableStartAfterSuccess: true,
-      enableSummaryScreen: false // Não mostra o summary deles, nós temos nossa própria tela de Resultado
+      enableSummaryScreen: false, // Não mostra o summary deles, nós temos nossa própria tela de Resultado
+      measurementPreset: 9 // 9 = THIRTY_SECONDS_ALL_METRICS (Trava em 30 segundos exatos)
     });
 
     if (result === InitializationResult.OK) {

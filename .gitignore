@@ -11,6 +11,7 @@ npm-debug.*
 # Environment variables
 .env
 .env.*
+!.env.example
 
 # macOS
 .DS_Store
@@ -35,3 +36,6 @@ ios/.symlinks/
 app-unused/
 
 react-native-shenai-sdk/ios/
+
+# Logs
+*.log
