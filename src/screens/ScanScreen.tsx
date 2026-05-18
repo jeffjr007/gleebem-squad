@@ -1,6 +1,6 @@
 // src/screens/ScanScreen.tsx — TELA 4: Câmera / Scan
 import React, { useEffect } from 'react';
-import { StyleSheet, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, SafeAreaView, TouchableOpacity, View, Alert, Linking } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import { executeWellnessScan } from '../services/shenai.service';
@@ -21,8 +21,20 @@ export default function ScanScreen({ navigation }: Props) {
       if (result) {
         navigation.replace('Loading', { results: result });
       } else {
-        // Fallback or cancelled
-        navigation.goBack();
+        Alert.alert(
+          'Medição não concluída',
+          'A câmera não foi autorizada ou ocorreu um erro durante o scan. Verifique as permissões do app nas configurações do dispositivo.',
+          [
+            { text: 'Cancelar', style: 'cancel', onPress: () => navigation.goBack() },
+            {
+              text: 'Abrir Configurações',
+              onPress: () => {
+                Linking.openSettings();
+                navigation.goBack();
+              },
+            },
+          ]
+        );
       }
     }
 

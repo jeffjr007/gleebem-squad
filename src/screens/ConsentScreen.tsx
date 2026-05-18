@@ -18,7 +18,7 @@ export default function ConsentScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBarRow time="16:57" />
+      <StatusBarRow />
       <InnerHeader title="Privacidade e Dados" onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>

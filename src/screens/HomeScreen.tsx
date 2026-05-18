@@ -21,7 +21,7 @@ type Props = {
 export default function HomeScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBarRow time="16:56" />
+      <StatusBarRow />
 
       {/* Header Gleebem azul */}
       <View style={styles.gHeader}>

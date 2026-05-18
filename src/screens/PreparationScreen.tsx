@@ -71,7 +71,7 @@ export default function PreparationScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBarRow time="16:57" />
+      <StatusBarRow />
       <InnerHeader title="Preparar Ambiente" onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>

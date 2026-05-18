@@ -16,7 +16,7 @@ export default function RecommendationsScreen({ navigation, route }: Props) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBarRow time="16:59" />
+      <StatusBarRow />
       <InnerHeader title="Recomendações" onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>

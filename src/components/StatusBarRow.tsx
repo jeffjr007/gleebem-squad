@@ -1,17 +1,29 @@
 // src/components/StatusBarRow.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Colors } from '../theme';
 import Svg, { Path, Rect } from 'react-native-svg';
 
 interface Props {
-  time?: string;
-  dark?: boolean; // dark background (scan screen)
+  dark?: boolean;
 }
 
-export default function StatusBarRow({ time = '16:56', dark = false }: Props) {
+function getLiveTime(): string {
+  return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+}
+
+export default function StatusBarRow({ dark = false }: Props) {
+  const [time, setTime] = useState(getLiveTime());
   const color = dark ? 'rgba(255,255,255,0.8)' : Colors.text;
   const iconColor = dark ? 'rgba(255,255,255,0.8)' : Colors.text;
+
+  // Atualiza o horário a cada 30 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(getLiveTime());
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View style={styles.sb}>

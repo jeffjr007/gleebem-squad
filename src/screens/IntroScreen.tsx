@@ -30,7 +30,7 @@ function BenefitCard({ icon, title, desc }: { icon: React.ReactNode; title: stri
 export default function IntroScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBarRow time="16:56" />
+      <StatusBarRow />
       <InnerHeader title="Teste de Saúde Rápido" onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>

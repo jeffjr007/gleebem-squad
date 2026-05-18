@@ -40,12 +40,28 @@ function MetricCard({
   );
 }
 
+// Calcula o offset do anel SVG para o wellness score (perímetro = 2π × 56 ≈ 352)
+function calcRingOffset(score: number): number {
+  const circumference = 352;
+  return circumference - (circumference * Math.min(100, Math.max(0, score))) / 100;
+}
+
+// Retorna o label de saúde baseado no score
+function getScoreLabel(score: number): { text: string; color: string } {
+  if (score >= 80) return { text: 'Ótimo estado de saúde', color: '#3DA870' };
+  if (score >= 60) return { text: 'Bom estado de saúde', color: '#3DA870' };
+  if (score >= 40) return { text: 'Estado moderado', color: '#C88800' };
+  return { text: 'Requer atenção', color: '#EA7552' };
+}
+
 export default function ResultScreen({ navigation, route }: Props) {
   const { results } = route.params;
+  const scoreLabel = getScoreLabel(results.wellnessScore);
+  const ringOffset = calcRingOffset(results.wellnessScore);
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBarRow time="16:59" />
+      <StatusBarRow />
       <InnerHeader title="Seu Resultado" onBack={() => navigation.navigate('Home')} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={true}>
@@ -65,20 +81,20 @@ export default function ResultScreen({ navigation, route }: Props) {
                 strokeWidth={9}
                 strokeLinecap="round"
                 strokeDasharray={352}
-                strokeDashoffset={68}
+                strokeDashoffset={ringOffset}
                 transform="rotate(-90 65 65)"
               />
             </Svg>
             <View style={styles.scoreNumArea}>
-              <Text style={styles.scoreBig}>82</Text>
+              <Text style={styles.scoreBig}>{results.wellnessScore}</Text>
               <Text style={styles.scoreOf}>/100</Text>
             </View>
           </View>
-          <View style={styles.scoreBadge}>
+          <View style={[styles.scoreBadge, { borderColor: `${scoreLabel.color}33`, backgroundColor: `${scoreLabel.color}1A` }]}>
             <Svg width={14} height={14} viewBox="0 0 14 14" fill="none">
-              <Path d="M7 1l1.5 3.5L13 5l-3 3 .7 4L7 10l-3.7 2 .7-4L1 5l4.5-.5L7 1z" stroke="#3DA870" strokeWidth={1.2} strokeLinejoin="round" fill="none" />
+              <Path d="M7 1l1.5 3.5L13 5l-3 3 .7 4L7 10l-3.7 2 .7-4L1 5l4.5-.5L7 1z" stroke={scoreLabel.color} strokeWidth={1.2} strokeLinejoin="round" fill="none" />
             </Svg>
-            <Text style={styles.scoreBadgeTxt}>Bom estado de saúde</Text>
+            <Text style={[styles.scoreBadgeTxt, { color: scoreLabel.color }]}>{scoreLabel.text}</Text>
           </View>
         </View>
 
